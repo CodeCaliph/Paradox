@@ -6,12 +6,9 @@ import time
 import joblib
 
 
-with open("tfidf_transformer.pkl", "rb") as f:
-    tfidf = pickle.load(f)
-with open("Trained_Model.pkl", "rb") as f:
-    model = pickle.load(f)
-with open("label_encoder.pkl", "rb") as f:
-    label_encoder = pickle.load(f)
+tfidf = joblib.load("tfidf_transformer.pkl")
+model = joblib.load("Trained_Model.pkl")
+label_encoder = joblib.load("label_encoder.pkl")
     
 ps = PorterStemmer() 
 
