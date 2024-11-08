@@ -81,7 +81,7 @@ elif app_mode == "Comments Prediction":
         st.markdown("---")
         
         # Batch prediction
-        uploaded_predict_file = st.file_uploader("Upload CSV file for batch predictions", type="csv")
+        uploaded_predict_file = st.file_uploader("Upload CSV file for batch predictions", type=["csv", "xlsx"])
         
         if uploaded_predict_file is not None:
             predict_data = pd.read_csv(uploaded_predict_file)
