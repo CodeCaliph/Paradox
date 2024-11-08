@@ -80,29 +80,35 @@ elif app_mode == "Comments Prediction":
 
         st.markdown("---")
         
-        # Batch prediction
-        uploaded_predict_file = st.file_uploader("Upload CSV file for batch predictions", type="csv")
-        
-        if uploaded_predict_file is not None:
-            predict_data = pd.read_csv(uploaded_predict_file)
-            
-            if 'Comment' in predict_data.columns:
-                predict_data['Comment'] = predict_data['Comment'].apply(clean_and_stem_text)
-                X_predict = tfidf.transform(predict_data['Comment'])
-                y_pred = model.predict(X_predict)
-                
-                # Decode predictions
-                predictions = label_encoder.inverse_transform(y_pred)
-                predict_data['Label'] = predictions
-                
-                # Save and download predictions
-                result_file = "batch_predictions.csv"
-                predict_data[['Comment', 'Label']].to_csv(result_file, index=False)
-                st.download_button("Download Predictions", data=open(result_file, "rb").read(), file_name=result_file)
-                
-                st.success("Predictions completed and available for download.")
-            else:
-                st.error("Uploaded file must contain a 'Comment' column.")
+       # Batch prediction
+uploaded_predict_file = st.file_uploader("Upload file for batch predictions", type=["csv", "xlsx"])
+
+if uploaded_predict_file is not None:
+    # Load the file based on its extension
+    if uploaded_predict_file.name.endswith('.csv'):
+        predict_data = pd.read_csv(uploaded_predict_file)
+    elif uploaded_predict_file.name.endswith('.xlsx'):
+        predict_data = pd.read_excel(uploaded_predict_file)
+
+    # Check for required columns
+    if list(predict_data.columns[:2]) == ["ID", "Comment"]:
+        # Apply text cleaning and prediction
+        predict_data['Comment'] = predict_data['Comment'].apply(clean_and_stem_text)
+        X_predict = tfidf.transform(predict_data['Comment'])
+        y_pred = model.predict(X_predict)
+
+        # Decode predictions
+        predictions = label_encoder.inverse_transform(y_pred)
+        predict_data['Label'] = predictions
+
+        # Save and download predictions
+        result_file = "batch_predictions.csv"
+        predict_data[['ID', 'Comment', 'Label']].to_csv(result_file, index=False)
+        st.download_button("Download Predictions", data=open(result_file, "rb").read(), file_name=result_file)
+
+        st.success("Predictions completed and available for download.")
+    else:
+        st.error("Uploaded file must contain 'ID' and 'Comment' columns as the first two columns.")
 
 # About Page
 elif app_mode == "About":
