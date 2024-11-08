@@ -57,7 +57,7 @@ if app_mode == "Home":
         Learn more on the **About** page regarding the model, dataset, and the creator behind Paradox.
     """)
 
-# Single/Batch Prediction Page
+# Prediction Page
 elif app_mode == "Comments Prediction":
     st.markdown("<h1 style='text-align: center;'>Single/Batch Prediction 📝</h1>", unsafe_allow_html=True)
     
@@ -121,6 +121,7 @@ elif app_mode == "About":
 - **Contact**: [mohdadnankhan.india@gmail.com](mailto:mohdadnankhan.india@gmail.com) | [LinkedIn](https://www.linkedin.com/in/mohd-adnan--khan)  
 
 **Muhammed Ashrah**  
+- **Role**: Data Science Collaborator  
 - **Background**: A dedicated data science enthusiast with a strong interest in machine learning and AI. He is passionate about building intuitive and user-friendly tools.
 - **Contact**: [mohd.ashrah@gmail.com](mailto:mohd.ashrah@gmail.com) | [LinkedIn](https://www.linkedin.com/in/muhammed-ashrah)
 
