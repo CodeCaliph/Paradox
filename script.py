@@ -11,6 +11,9 @@ from sklearn.preprocessing import LabelEncoder
 from nltk.stem import PorterStemmer
 from sklearn.metrics import accuracy_score
 
+st.set_page_config(page_title='Paradox', 
+                   page_icon="🔮")
+
 ps = PorterStemmer()
 
 def clean_and_stem_text(text):
