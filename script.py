@@ -61,6 +61,7 @@ if app_mode == "Home":
     """)
 
 # Prediction Page
+# Prediction Page
 elif app_mode == "Comments Prediction":
     st.markdown("<h1 style='text-align: center;'>Single/Batch Prediction 📝</h1>", unsafe_allow_html=True)
     
@@ -82,36 +83,36 @@ elif app_mode == "Comments Prediction":
                 st.error("Please enter a comment to predict.")
 
         st.markdown("---")
-        
-       # Batch prediction
-uploaded_predict_file = st.file_uploader("Upload file for batch predictions", type=["csv", "xlsx"])
 
-if uploaded_predict_file is not None:
-    # Load the file based on its extension
-    if uploaded_predict_file.name.endswith('.csv'):
-        predict_data = pd.read_csv(uploaded_predict_file)
-    elif uploaded_predict_file.name.endswith('.xlsx'):
-        predict_data = pd.read_excel(uploaded_predict_file)
+        # Batch prediction - this is now indented under the Comments Prediction block
+        uploaded_predict_file = st.file_uploader("Upload file for batch predictions", type=["csv", "xlsx"])
 
-    # Check for required columns
-    if list(predict_data.columns[:2]) == ["ID", "Comment"]:
-        # Apply text cleaning and prediction
-        predict_data['Comment'] = predict_data['Comment'].apply(clean_and_stem_text)
-        X_predict = tfidf.transform(predict_data['Comment'])
-        y_pred = model.predict(X_predict)
+        if uploaded_predict_file is not None:
+            # Load the file based on its extension
+            if uploaded_predict_file.name.endswith('.csv'):
+                predict_data = pd.read_csv(uploaded_predict_file)
+            elif uploaded_predict_file.name.endswith('.xlsx'):
+                predict_data = pd.read_excel(uploaded_predict_file)
 
-        # Decode predictions
-        predictions = label_encoder.inverse_transform(y_pred)
-        predict_data['Label'] = predictions
+            # Check for required columns
+            if list(predict_data.columns[:2]) == ["ID", "Comment"]:
+                # Apply text cleaning and prediction
+                predict_data['Comment'] = predict_data['Comment'].apply(clean_and_stem_text)
+                X_predict = tfidf.transform(predict_data['Comment'])
+                y_pred = model.predict(X_predict)
 
-        # Save and download predictions
-        result_file = "batch_predictions.csv"
-        predict_data[['ID', 'Comment', 'Label']].to_csv(result_file, index=False)
-        st.download_button("Download Predictions", data=open(result_file, "rb").read(), file_name=result_file)
+                # Decode predictions
+                predictions = label_encoder.inverse_transform(y_pred)
+                predict_data['Label'] = predictions
 
-        st.success("Predictions completed and available for download.")
-    else:
-        st.error("Uploaded file must contain 'ID' and 'Comment' columns as the first two columns.")
+                # Save and download predictions
+                result_file = "batch_predictions.csv"
+                predict_data[['ID', 'Comment', 'Label']].to_csv(result_file, index=False)
+                st.download_button("Download Predictions", data=open(result_file, "rb").read(), file_name=result_file)
+
+                st.success("Predictions completed and available for download.")
+            else:
+                st.error("Uploaded file must contain 'ID' and 'Comment' columns as the first two columns.")
 
 # About Page
 elif app_mode == "About":
