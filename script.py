@@ -131,7 +131,6 @@ elif app_mode == "About":
 - **Contact**: [mohdadnankhan.india@gmail.com](mailto:mohdadnankhan.india@gmail.com) | [LinkedIn](https://www.linkedin.com/in/mohd-adnan--khan)  
 
 **Muhammed Ashrah**  
-- **Role**: Data Science Collaborator  
 - **Background**: A dedicated data science enthusiast with a strong interest in machine learning and AI. He is passionate about building intuitive and user-friendly tools.
 - **Contact**: [mohd.ashrah@gmail.com](mailto:mohd.ashrah@gmail.com) | [LinkedIn](https://www.linkedin.com/in/muhammed-ashrah)
 
